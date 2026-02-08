@@ -1,10 +1,17 @@
-import os
 from flask import Flask
+import threading
+import os
+
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-   return 'GreyMatters_Bot'
+@app.route("/")
+def home():
+    return "Bot is running 🚀"
 
-#Ex https://Greymattersbot:ghp_147bkkabcdefgh@github.com/Greymattersbot/Mogenius
-os.system("git clone https://github.com/izazkhan829/Forwardbotadvance okk && cd okk && pip3 install -U -r requirements.txt && nohup python3 main.py &")
+def run_bot():
+    import bot  # or main, whichever starts the bot
+
+threading.Thread(target=run_bot).start()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
